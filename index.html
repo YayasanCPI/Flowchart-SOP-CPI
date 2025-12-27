@@ -1,659 +1,673 @@
-import React, { useState } from 'react';
-import { 
-  ChevronRight, 
-  ChevronDown, 
-  CheckCircle, 
-  AlertCircle, 
-  FileText, 
-  DollarSign, 
-  Users, 
-  Briefcase, 
-  Handshake, 
-  HeartHandshake,
-  ClipboardList,
-  LayoutGrid,
-  ShieldCheck,
-  UserCheck,
-  Activity,
-  ExternalLink,
-  ArrowDownToLine,
-  ArrowUpFromLine,
-  Monitor,
-  Cpu,
-  Package,
-  BadgeCheck,
-  ShoppingBag,
-  Scale,
-  Timer,
-  Ban,
-  Gavel,
-  Truck,
-  Receipt,
-  Wallet,
-  AlertTriangle
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP & Tata Kelola Yayasan CPI</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-const DOC_LINKS = {
-  BID_COMPARISON: "https://docs.google.com/document/d/1bjW567u4hGW4wke27XSGqMoLCCjKfPAd/edit?usp=sharing",
-  DONATUR_ALUMNI: "https://docs.google.com/document/d/1wS3flXYCk6-oPf05ToNBi01b73Omlug_/edit?usp=sharing",
-  DONATUR_KYD: "https://docs.google.com/document/d/1kWYhcJL1YJVas31JSPRdI-Vd-QMtuErq/edit?usp=sharing",
-  MITRA_ALUMNI: "https://docs.google.com/document/d/1_bChYCjRZ9Q_mKclpJ7nJhpL9Edr1uUZ/edit?usp=sharing",
-  DANA_SOLIDARITAS: "https://docs.google.com/document/d/1Lu4gPejeWBO2-XuN12OVMCIjrVTcskjp/edit?usp=drive_link",
-  DUE_DILIGENCE: "https://docs.google.com/document/d/1p6ggMmRWDlqBTJ4pmLDFS3Slyskb-gDG/edit?usp=sharing",
-  MOU: "https://docs.google.com/document/d/1_jO_piS9i9OGSpRgtuWzm4Cw6d67Z_aw/edit?usp=sharing",
-  SOP_KEUANGAN: "https://docs.google.com/document/d/17pe1b343PHugIJqdEkjZHn4ZaH34qA-w/edit?usp=drive_link",
-  PENGESAHAN: "https://docs.google.com/document/d/1kmbQuOU9CKsamJXHlXlK-PUkRsoluuqJ/edit?usp=drive_link",
-  SOP_CSR: "https://docs.google.com/document/d/1pV_uTaahHhJVRDKHz0nsyn0_Zg-zS9xZ/edit?usp=drive_link",
-  SOP_KEGIATAN: "https://docs.google.com/document/d/1jiKB_tcGSVdy6H1wD0Xpdq7AUd7nQpcP/edit?usp=drive_link",
-  SOP_DONASI: "https://docs.google.com/document/d/1wbGC37ChV1vANIcv9nhIZVTBAQmq5ujK/edit?usp=drive_link",
-  SOP_PENGADAAN: "https://docs.google.com/document/d/1spk3zlHGzCIO_JfAm9sFliNSBzAaPzTS/edit?usp=drive_link",
-  SOP_BANTUAN_INTERNAL: "https://docs.google.com/document/d/1_tcCAdVvRRwKisp1K840K0wLUoPwfoGY/edit?usp=drive_link",
-  FORM_LPJ: "https://docs.google.com/document/d/1tLArTdqX-3cxahtqegT4bs1G0qoN3e_O/edit?usp=sharing",
-  FORM_TANDA_TERIMA_DONASI: "https://docs.google.com/document/d/1_XI9ddRvq4iTHm5jtBnWE6fMudEeTZdn/edit?usp=sharing"
-};
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        cpi: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-const App = () => {
-  const [activeTab, setActiveTab] = useState('STR');
+    <style>
+        body { background-color: #f8fafc; }
+        .node-card {
+            transition: all 0.3s ease;
+        }
+        .node-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .arrow-down {
+            width: 2px;
+            height: 32px;
+            background-color: #cbd5e1;
+            margin: 8px auto;
+            position: relative;
+        }
+        .arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -4px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #cbd5e1;
+        }
+        /* Hide scrollbar for chrome/safari/opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
 
-  const sops = [
-    { id: 'STR', title: 'Struktur Organisasi', icon: <LayoutGrid className="w-5 h-5" />, color: 'slate' },
-    { id: 'CMD', title: 'Command Center (Web)', icon: <Monitor className="w-5 h-5" />, color: 'indigo' },
-    { id: '001', title: 'Detail Keuangan', icon: <DollarSign className="w-5 h-5" />, color: 'blue' },
-    { id: '002', title: 'Detail Kegiatan', icon: <FileText className="w-5 h-5" />, color: 'green' },
-    { id: '003', title: 'Detail Donasi', icon: <Users className="w-5 h-5" />, color: 'amber' },
-    { id: '004', title: 'Detail Pengadaan', icon: <Briefcase className="w-5 h-5" />, color: 'purple' },
-    { id: 'INT', title: 'Bantuan Internal', icon: <HeartHandshake className="w-5 h-5" />, color: 'rose' },
-  ];
-
-  const Node = ({ text, type = 'process', subtext = '', responsibilities = [], form = '', person = '', link = '', pic = '' }) => {
-    let bgColor = 'bg-white';
-    let borderColor = 'border-slate-200';
-    let shape = 'rounded-lg';
-
-    if (type === 'start') {
-      bgColor = 'bg-slate-800 text-white';
-      shape = 'rounded-full px-6';
-    } else if (type === 'decision') {
-      bgColor = 'bg-orange-50 border-orange-200';
-    } else if (type === 'alumni') {
-      bgColor = 'bg-indigo-50 border-indigo-200 text-indigo-900';
-    } else if (type === 'organ') {
-      bgColor = 'bg-slate-100 border-slate-300';
-    } else if (type === 'web') {
-      bgColor = 'bg-indigo-600 text-white border-indigo-700';
-    } else if (type === 'warning') {
-      bgColor = 'bg-red-50 border-red-200 text-red-900';
-    }
-
-    return (
-      <div className={`flex flex-col p-4 border-2 shadow-sm ${bgColor} ${borderColor} ${shape} min-w-[260px] max-w-[320px] text-left transition-all hover:shadow-md relative`}>
-        {pic && <div className="absolute -top-3 left-4 bg-blue-600 text-white text-[9px] font-bold px-2 py-0.5 rounded shadow-sm uppercase tracking-wider">PIC: {pic}</div>}
-        {person && <span className={`text-[10px] font-bold uppercase mb-1 tracking-widest text-center ${type==='web'?'text-indigo-100':'text-slate-500'}`}>{person}</span>}
-        <span className="font-bold text-sm uppercase tracking-tight text-center mb-1">{text}</span>
-        {subtext && <span className={`text-[11px] font-medium mb-2 italic text-center leading-tight ${type==='web'?'text-indigo-100':'text-slate-600'}`}>{subtext}</span>}
-        
-        {responsibilities.length > 0 && (
-          <div className="mb-3">
-            <span className={`text-[9px] font-bold uppercase tracking-tighter block mb-1 ${type==='web'?'text-indigo-200':'text-slate-400'}`}>Tugas & Fungsi:</span>
-            <ul className={`text-[10px] list-disc list-outside ml-3 space-y-0.5 ${type==='web'?'text-indigo-50':'text-slate-500'}`}>
-              {responsibilities.map((r, i) => <li key={i}>{r}</li>)}
-            </ul>
-          </div>
-        )}
-
-        {form && (
-          <div className="mt-auto pt-2 border-t border-dashed border-slate-300 w-full group">
-            {link ? (
-              <a 
-                href={link} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={`text-[10px] font-bold flex items-center justify-center gap-1 italic transition-colors ${type==='web'?'text-white hover:text-indigo-200':'text-blue-600 hover:text-blue-800'}`}
-              >
-                <ClipboardList className="w-3 h-3" /> {form}
-                <ExternalLink className="w-2.5 h-2.5 opacity-50 group-hover:opacity-100" />
-              </a>
-            ) : (
-              <span className="text-[10px] font-bold text-slate-400 flex items-center justify-center gap-1 italic">
-                <ClipboardList className="w-3 h-3" /> {form}
-              </span>
-            )}
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  const Arrow = () => (
-    <div className="flex flex-col items-center py-2">
-      <div className="w-0.5 h-8 bg-slate-300"></div>
-      <ChevronDown className="w-4 h-4 -mt-1 text-slate-300" />
-    </div>
-  );
-
-  const renderStructure = () => (
-    <div className="flex flex-col items-center py-4 space-y-4">
-      <div className="bg-slate-100 p-2 rounded-lg text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Tingkat Strategis (Organ Yayasan)</div>
-      <Node 
-        person="Baharudin Abiad" 
-        text="Dewan Pembina" 
-        subtext="Otoritas Tertinggi" 
-        responsibilities={[
-          "Menetapkan Garis Besar Haluan.",
-          "Menyetujui Tender > Rp 50 Juta.",
-          "Audit Tahunan Kinerja Pengurus."
-        ]}
-        type="organ"
-        form="SK Pengesahan SOP"
-        link={DOC_LINKS.PENGESAHAN}
-      />
-      
-      <div className="flex gap-6 items-start pt-4 flex-wrap justify-center">
-        <div className="flex flex-col items-center">
-          <div className="w-px h-8 bg-slate-300"></div>
-          <Node 
-            person="Amri W. & Dimas K." 
-            text="Pengawas" 
-            subtext="Auditor Internal" 
-            responsibilities={[
-              "Surprise Audit fisik aset & kas.",
-              "Validasi Transaksi Berelasi (Keluarga).",
-              "Pencegahan mark-up harga vendor."
-            ]}
-          />
-        </div>
-        <div className="flex flex-col items-center">
-          <div className="w-px h-8 bg-slate-300"></div>
-          <div className="flex gap-4 flex-wrap justify-center">
-            <Node 
-              person="Rio Anggie Widodo" 
-              text="Ketua Pengurus" 
-              subtext="Approval Utama" 
-              responsibilities={[
-                "Otorisasi Pengadaan Rp 5-50 Juta.",
-                "Tanda tangan Kontrak/MoU Vendor.",
-                "Persetujuan 'Matching Price' Alumni."
-              ]}
-            />
-            <div className="flex flex-col gap-4">
-              <Node 
-                person="Puri Ananda S.T" 
-                text="Sekretaris Yayasan" 
-                subtext="Admin Legalitas" 
-                responsibilities={[
-                  "Penerbitan PO (Purchase Order).",
-                  "Arsip BAST & Dokumen Tender.",
-                  "Cek Legalitas Vendor (NIB/NPWP)."
-                ]}
-              />
-              <Node 
-                person="Pratiwi S.T" 
-                text="Bendahara Yayasan" 
-                subtext="Gatekeeper Harga" 
-                responsibilities={[
-                  "Survey HPS (Harga Pasar).",
-                  "Validasi keaslian nota tagihan.",
-                  "Eksekusi pembayaran (Max 7 hari)."
-                ]}
-              />
+    <!-- HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-cpi-700 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    C
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight text-slate-900">Yayasan CPI</h1>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Sistem Tata Kelola 2026</p>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full h-px bg-slate-200 my-8"></div>
-      <div className="bg-blue-50 p-2 rounded-lg text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-2">Tingkat Eksekutif (BPH)</div>
-      
-      <Node 
-        person="Gilang Satria" 
-        text="Ketua BPH" 
-        subtext="Direktur Sourcing" 
-        responsibilities={[
-          "Verifikasi Purchase Request divisi.",
-          "Sourcing Vendor di Database Alumni.",
-          "Negosiasi harga awal dengan vendor."
-        ]}
-        type="alumni" 
-      />
-      <Arrow />
-      <div className="flex gap-4 flex-wrap justify-center">
-        <Node 
-          person="Risyandi" 
-          text="Wakil Ketua BPH" 
-          subtext="Manajer Logistik & QC" 
-          responsibilities={[
-            "Cek fisik barang saat diterima (QC).",
-            "Tanda tangan Berita Acara (BAST).",
-            "Manajemen stok & inventaris."
-          ]}
-        />
-        <Node 
-          person="Lia A. & Alhamdi R." 
-          text="Sekretaris BPH" 
-          subtext="Admin & Database" 
-          responsibilities={[
-            "Administrasi program & notulensi rapat.",
-            "Kelola Database Alumni & Web App.",
-            "Inventarisir aset & arsip dokumen."
-          ]}
-        />
-        <Node 
-          person="Arif Kurniawan" 
-          text="Humas & Publikasi" 
-          subtext="Promosi Vendor" 
-          responsibilities={[
-            "Publikasi profil vendor alumni.",
-            "Sosialisasi kebutuhan yayasan ke grup.",
-            "Branding 'Didukung Alumni 2005'."
-          ]}
-        />
-      </div>
-    </div>
-  );
-
-  const renderCommandCenter = () => (
-    <div className="flex flex-col items-center py-4 space-y-8">
-      <div className="bg-indigo-900 text-white p-6 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-          <div className="flex items-center gap-4">
-            <div className="p-4 bg-white/10 rounded-2xl backdrop-blur">
-              <Monitor className="w-10 h-10 text-indigo-300" />
+            <div class="hidden md:block">
+                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold border border-green-200">
+                    <i class="fas fa-circle text-[8px] mr-1"></i> System Online
+                </span>
             </div>
-            <div>
-              <h2 className="text-2xl font-bold">CPI Command Center 2026</h2>
-              <p className="text-indigo-200 text-sm">Sistem Digital Monitoring & Eksekusi</p>
-            </div>
-          </div>
-          <div className="bg-indigo-800/50 p-4 rounded-xl border border-indigo-700">
-            <span className="text-[10px] font-bold uppercase text-indigo-300 block mb-1">Admin Sistem</span>
-            <span className="font-bold flex items-center gap-2 text-sm"><UserCheck className="w-4 h-4" /> Alhamdi Rasyid</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
-        <Node 
-          text="Dashboard Strategis" 
-          type="web"
-          subtext="Visualisasi & KPI"
-          responsibilities={[
-            "Peta jalan strategis yayasan.",
-            "Timeline kegiatan real-time.",
-            "Statistik distribusi pilar program."
-          ]}
-        />
-        <Node 
-          text="Buku Kas Digital" 
-          type="web"
-          subtext="Otomatisasi Laporan"
-          responsibilities={[
-            "Pencatatan kas harian digital.",
-            "Sinkronisasi Akun COA.",
-            "Ekspor Laporan Arus Kas PDF."
-          ]}
-        />
-        <Node 
-          text="Papan Kanban" 
-          type="web"
-          subtext="Status Pelaksanaan"
-          responsibilities={[
-            "Tracking Rencana, Berjalan, Selesai.",
-            "Manajemen arsip dokumen per program.",
-            "Audit kesiapan SOP hari-H."
-          ]}
-        />
-      </div>
-    </div>
-  );
-
-  const renderSOP001Detailed = () => (
-    <div className="flex flex-col items-center py-4 space-y-8">
-      <div className="w-full flex flex-col items-center bg-blue-50/50 p-8 rounded-3xl border border-blue-100">
-        <div className="flex items-center gap-2 mb-6 text-blue-700 font-bold uppercase tracking-widest text-sm">
-          <ArrowUpFromLine className="w-5 h-5" /> ALUR PENGELUARAN DANA (CASH OUT)
-        </div>
-        <Node text="1. Pengajuan (Requisition)" subtext="Min H-7 Dana Dibutuhkan" pic="Divisi Pengusul" form="Form FPKA & RAB" link={DOC_LINKS.SOP_KEUANGAN} type="start" />
-        <Arrow />
-        <Node text="2. Verifikasi" subtext="Cek Saldo & Anggaran" pic="Gilang Satria & Pratiwi" />
-        <Arrow />
-        <Node text="3. Persetujuan (Approval)" subtext="Matriks Otorisasi Berjenjang" type="decision" />
-        <div className="flex gap-4 mt-6 flex-wrap justify-center">
-          <Node text="Nilai < Rp 1 Juta" subtext="Approval: Sekretaris (Puri)" />
-          <Node text="Rp 1 - 50 Juta" subtext="Approval: Ketua (Rio)" />
-          <Node text="Nilai > Rp 50 Juta" subtext="Approval: Rapat Gabungan" />
-        </div>
-        <Arrow />
-        <Node text="4. Pencairan & Belanja" subtext="Prioritas Alumni First" pic="Bendahara" type="alumni" form="Bid Comparison" link={DOC_LINKS.BID_COMPARISON} />
-        <Arrow />
-        <Node text="5. LPJ & Sisa Dana" subtext="H+14 Penyerahan LPJ" pic="PIC Divisi" form="Form LPJ Keuangan" link={DOC_LINKS.FORM_LPJ} />
-      </div>
-    </div>
-  );
-
-  const renderSOP002Detailed = () => (
-    <div className="flex flex-col items-center py-4 space-y-12">
-      <div className="w-full flex flex-col items-center bg-green-50/50 p-8 rounded-3xl border border-green-100">
-        <div className="flex items-center gap-2 mb-6 text-green-700 font-bold uppercase tracking-widest text-sm">
-          <Timer className="w-5 h-5" /> FASE 1: PERENCANAAN (PRE-EVENT)
-        </div>
-        <Node text="1. Proposal Kegiatan" subtext="H-14 (Kecil) / H-30 (Besar)" pic="Divisi" form="SOP Manajemen Kegiatan" link={DOC_LINKS.SOP_KEGIATAN} type="start" />
-        <Arrow />
-        <Node text="2. Verifikasi & SK" subtext="Penunjukan Panitia" pic="BPH & Ketua Pengurus" />
-        <Arrow />
-        <Node text="3. Technical Meeting" subtext="Finalisasi Teknis H-3" pic="PIC Kegiatan" />
-      </div>
-      <div className="w-full flex flex-col items-center bg-indigo-50/50 p-8 rounded-3xl border border-indigo-100">
-        <div className="flex items-center gap-2 mb-6 text-indigo-700 font-bold uppercase tracking-widest text-sm">
-          <Activity className="w-5 h-5" /> FASE 2: PELAKSANAAN (EVENT)
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl">
-          <Node text="Quality Control Hari-H" form="Checklist QC Acara" pic="PO Kegiatan" />
-          <Node text="Branding & Dokumentasi" subtext="Prinsip Do No Harm" pic="Humas (Arif K.)" />
-        </div>
-      </div>
-      <div className="w-full flex flex-col items-center bg-slate-50 p-8 rounded-3xl border border-slate-200">
-        <div className="flex items-center gap-2 mb-6 text-slate-700 font-bold uppercase tracking-widest text-sm">
-          <FileText className="w-5 h-5" /> FASE 3: PELAPORAN (POST-EVENT)
-        </div>
-        <Node text="Penyusunan LPJ" subtext="Max 14 Hari Kalender" responsibilities={["Laporan Narasi & Keuangan", "Database Peserta", "Link Dokumentasi"]} form="Form LPJ Keuangan" link={DOC_LINKS.FORM_LPJ} />
-        <Arrow />
-        <div className="p-4 bg-red-900 text-white rounded-xl max-w-md text-center">
-          <span className="font-bold text-xs uppercase flex items-center justify-center gap-2"><Ban className="w-4 h-4" /> Sanksi Funding Freeze</span>
-          <p className="text-[10px] mt-1 opacity-80">Proposal dibekukan jika LPJ terlambat lebih dari H+21.</p>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderSOP003Detailed = () => (
-    <div className="flex flex-col items-center py-4 space-y-12">
-      <div className="w-full flex flex-col items-center bg-amber-50/50 p-8 rounded-3xl border border-amber-100">
-        <div className="flex items-center gap-2 mb-6 text-amber-700 font-bold uppercase tracking-widest text-sm">
-          <DollarSign className="w-5 h-5" /> ALUR PENERIMAAN DONASI
-        </div>
-        <Node text="1. Penerimaan Dana" subtext="Bank, QRIS, atau Tunai" form="Form Data Donatur" link={DOC_LINKS.DONATUR_ALUMNI} type="start" />
-        <Arrow />
-        <Node text="2. Screening KYD" subtext="Anti-TPPU & Integritas" pic="Bendahara" responsibilities={["Cek Nominal: Wajib jika > 10jt.", "Cek IUP/PROPER untuk Tambang."]} form="Form KYD" link={DOC_LINKS.DONATUR_KYD} type="decision" />
-        <Arrow />
-        <Node text="3. Konfirmasi & Kuitansi" subtext="Maksimal 1x24 Jam" pic="Humas (Arif K.)" responsibilities={["WA Konfirmasi Terima Kasih.", "Terbitkan Sertifikat Donasi."]} form="Form Tanda Terima" link={DOC_LINKS.FORM_TANDA_TERIMA_DONASI} />
-      </div>
-    </div>
-  );
-
-  const renderSOP004Detailed = () => (
-    <div className="flex flex-col items-center py-4 space-y-12">
-      {/* PHASE 1: INITIATION */}
-      <div className="w-full flex flex-col items-center bg-purple-50/50 p-8 rounded-3xl border border-purple-100">
-        <div className="flex items-center gap-2 mb-6 text-purple-700 font-bold uppercase tracking-widest text-sm">
-          <ShoppingBag className="w-5 h-5" /> FASE 1: INISIASI & SOURCING
         </div>
         
-        <Node 
-          text="1. Permintaan (Requisition)" 
-          subtext="Isi Spesifikasi di Form" 
-          pic="Divisi Pengguna" 
-          form="Purchase Request (PR)"
-          type="start" 
-        />
-        <Arrow />
-        <Node 
-          text="2. Cek Direktori Alumni" 
-          subtext="Wajib 'Alumni First'" 
-          pic="Gilang Satria (BPH)" 
-          responsibilities={[
-            "Cek database usaha alumni 2005.",
-            "Prioritaskan alumni sebagai vendor.",
-            "Jika tidak ada, cari vendor luar."
-          ]}
-          type="alumni"
-          form="Form Mitra Alumni"
-          link={DOC_LINKS.MITRA_ALUMNI}
-        />
-        <Arrow />
-        <Node 
-          text="3. Survey HPS" 
-          subtext="Harga Perkiraan Sendiri" 
-          pic="Pratiwi (Bendahara)" 
-          responsibilities={[
-            "Cek harga pasar online/offline.",
-            "Tentukan batas atas (Ceiling Price).",
-            "Cegah mark-up harga."
-          ]}
-        />
-      </div>
-
-      {/* PHASE 2: SELECTION */}
-      <div className="w-full flex flex-col items-center bg-slate-50 p-8 rounded-3xl border border-slate-200">
-        <div className="flex items-center gap-2 mb-6 text-slate-700 font-bold uppercase tracking-widest text-sm">
-          <Scale className="w-5 h-5" /> FASE 2: SELEKSI & KEPUTUSAN
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
-          <Node 
-            text="< Rp 5 Juta" 
-            subtext="Pembelian Langsung" 
-            responsibilities={[
-              "Langsung beli ke vendor alumni.",
-              "Wajib nota/bon asli.",
-              "Tanpa perlu pembanding."
-            ]}
-          />
-          <Node 
-            text="Rp 5 - 50 Juta" 
-            subtext="Pembanding Harga" 
-            responsibilities={[
-              "Min 2 penawaran (Wajib 1 Alumni).",
-              "Isi Form Bid Comparison.",
-              "Approval Ketua Pengurus."
-            ]}
-            form="Form Bid Comparison"
-            link={DOC_LINKS.BID_COMPARISON}
-          />
-          <Node 
-            text="> Rp 50 Juta" 
-            subtext="Tender Terbatas" 
-            pic="Dewan Pengawas"
-            responsibilities={[
-              "Min 3 penawaran resmi.",
-              "Berita Acara Seleksi Vendor.",
-              "Persetujuan Dewan Pengawas."
-            ]}
-          />
-        </div>
-
-        <div className="mt-8 p-6 bg-indigo-50 border-2 border-indigo-200 rounded-2xl w-full max-w-2xl shadow-sm text-center">
-          <h4 className="font-bold text-indigo-900 flex items-center justify-center gap-2 mb-2">
-            <BadgeCheck className="w-5 h-5" /> KEBIJAKAN SUBSIDI 10%
-          </h4>
-          <p className="text-xs text-indigo-800 leading-relaxed italic">
-            "Jika harga vendor Alumni maksimal 10% lebih mahal dari harga pasar terendah, Yayasan <strong>WAJIB</strong> memilih alumni tersebut. Selisih dianggap sebagai investasi pemberdayaan."
-          </p>
-        </div>
-      </div>
-
-      {/* PHASE 3: EXECUTION */}
-      <div className="w-full flex flex-col items-center bg-red-50/50 p-8 rounded-3xl border border-red-100">
-        <div className="flex items-center gap-2 mb-6 text-red-700 font-bold uppercase tracking-widest text-sm">
-          <Truck className="w-5 h-5" /> FASE 3: EKSEKUSI & PEMBAYARAN
-        </div>
-        
-        <Node 
-          text="1. Deklarasi Integritas" 
-          subtext="Cegah Konflik Kepentingan" 
-          pic="Semua Pihak" 
-          responsibilities={[
-            "Wajib lapor jika vendor adalah keluarga/teman.",
-            "Dilarang ikut voting jika ada benturan.",
-            "Dilarang terima komisi/kickback."
-          ]}
-          type="warning"
-          form="Form Deklarasi Benturan"
-          link={DOC_LINKS.BID_COMPARISON}
-        />
-        <Arrow />
-        <Node 
-          text="2. Penerbitan PO" 
-          subtext="Kontrak Pesanan" 
-          pic="Puri Ananda (Sekretaris)" 
-          responsibilities={[
-            "Kirim PO resmi ke vendor.",
-            "Cantumkan spesifikasi & termin bayar."
-          ]}
-        />
-        <Arrow />
-        <Node 
-          text="3. Receiving & QC" 
-          subtext="Cek Fisik Barang" 
-          pic="Risyandi (Wakil BPH)" 
-          responsibilities={[
-            "Cek kondisi & jumlah barang.",
-            "Tanda tangan BAST (Berita Acara).",
-            "Retur jika tidak sesuai spek."
-          ]}
-          form="BAST Barang"
-        />
-        <Arrow />
-        <Node 
-          text="4. Pembayaran (Payment)" 
-          subtext="Pelunasan Tagihan" 
-          pic="Pratiwi (Bendahara)" 
-          responsibilities={[
-            "Verifikasi invoice & BAST.",
-            "Prioritas pelunasan alumni (max 7 hari).",
-            "Transfer via Bank Yayasan."
-          ]}
-        />
-      </div>
-    </div>
-  );
-
-  const renderBantuanInternal = () => ( activeTab === 'INT' &&
-    <div className="flex flex-col items-center py-8 space-y-12">
-      <div className="w-full flex flex-col items-center bg-rose-50/50 p-8 rounded-3xl border border-rose-100">
-        <div className="flex items-center gap-2 mb-6 text-rose-700 font-bold uppercase tracking-widest text-sm">
-          <HeartHandshake className="w-5 h-5" /> BANTUAN INTERNAL KELUARGA 2005
-        </div>
-        <Node text="Mulai Pengajuan" subtext="Melalui Pengurus/Koorwil" form="Dana Solidaritas" link={DOC_LINKS.DANA_SOLIDARITAS} type="start" />
-        <Arrow />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mt-6">
-          <div className="flex flex-col items-center space-y-4">
-            <Node text="Pendidikan (Beasiswa)" subtext="Rutin Semesteran" responsibilities={["Skor Panel: Urgensi (60%).", "Prestasi (30%), Kontribusi (10%).", "Persetujuan Forum Alumni."]} />
-          </div>
-          <div className="flex flex-col items-center space-y-4">
-            <Node text="Darurat (Kesehatan/Duka)" subtext="Validasi 12 Jam" pic="Ketua & Bendahara" responsibilities={["Validasi Cepat via Dokumen RS.", "Pencairan Dana Max 24 Jam.", "Setoran Langsung ke RS/Keluarga."]} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'STR': return renderStructure();
-      case 'CMD': return renderCommandCenter();
-      case '001': return renderSOP001Detailed();
-      case '002': return renderSOP002Detailed();
-      case '003': return renderSOP003Detailed();
-      case '004': return renderSOP004Detailed();
-      case 'INT': return renderBantuanInternal();
-      default: return null;
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-4">
-          <div>
-            <div className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold mb-3 uppercase tracking-wider">
-              Yayasan Cakrawala Peduli Indonesia
+        <!-- Navigation Tabs -->
+        <div class="border-t border-slate-100 bg-white">
+            <div class="max-w-7xl mx-auto px-4 overflow-x-auto no-scrollbar">
+                <nav class="flex space-x-1 py-2" id="nav-container">
+                    <!-- Tabs will be injected here by JS -->
+                </nav>
             </div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight text-balance">Sistem Tata Kelola & Monitoring</h1>
-            <p className="text-slate-600 mt-2">Integrasi SOP manual dengan sistem Command Center digital.</p>
-          </div>
         </div>
+    </header>
 
-        <div className="flex flex-wrap gap-2 mb-8 bg-white p-2 rounded-xl shadow-sm border border-slate-200">
-          {sops.map((sop) => ( activeTab !== sop.id &&
-            <button
-              key={sop.id}
-              onClick={() => setActiveTab(sop.id)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all text-sm font-semibold text-slate-600 hover:bg-slate-100"
-            >
-              {sop.icon}
-              <span className="hidden lg:inline">{sop.title}</span>
-              <span className="lg:hidden">{sop.id}</span>
-            </button>
-          ))}
-          {sops.map((sop) => ( activeTab === sop.id &&
-            <button
-              key={sop.id}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all text-sm font-semibold bg-${sop.color}-600 text-white shadow-md cursor-default`}
-            >
-              {sop.icon}
-              <span className="hidden lg:inline">{sop.title}</span>
-              <span className="lg:hidden">{sop.id}</span>
-            </button>
-          ))}
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow p-4 sm:p-8">
+        <div class="max-w-6xl mx-auto">
+            
+            <!-- Title Section -->
+            <div class="mb-8 text-center md:text-left animate-fade-in">
+                <h2 id="page-title" class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Struktur Organisasi</h2>
+                <p id="page-desc" class="text-slate-600">Panduan lengkap struktur, peran, dan tanggung jawab personel yayasan.</p>
+            </div>
+
+            <!-- Content Area -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 min-h-[600px] overflow-hidden relative">
+                <!-- Legend -->
+                <div class="bg-slate-50 border-b border-slate-200 px-6 py-3 flex flex-wrap justify-center md:justify-end gap-4 text-[10px] font-bold uppercase text-slate-400">
+                    <div class="flex items-center gap-1"><div class="w-3 h-3 bg-slate-800 rounded-full"></div> Strategis/Mulai</div>
+                    <div class="flex items-center gap-1"><div class="w-3 h-3 bg-indigo-600 rounded"></div> Sistem/Alumni</div>
+                    <div class="flex items-center gap-1"><div class="w-3 h-3 bg-white border-2 border-slate-300 rounded"></div> Proses Manual</div>
+                    <div class="flex items-center gap-1"><div class="w-3 h-3 bg-orange-50 border border-orange-300 rounded"></div> Keputusan</div>
+                </div>
+
+                <!-- Canvas -->
+                <div id="canvas" class="p-6 md:p-10 flex flex-col items-center w-full">
+                    <!-- Content injected by JS -->
+                </div>
+            </div>
+
+            <!-- Quick Links Footer -->
+            <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <i class="fas fa-external-link-alt text-slate-300 text-xs"></i>
+                    </div>
+                    <h4 class="font-bold text-xs text-slate-700 uppercase mb-1">Form LPJ</h4>
+                    <p class="text-[10px] text-slate-500 mb-3 line-clamp-2">Laporan Pertanggungjawaban Keuangan & Kegiatan.</p>
+                    <a href="https://docs.google.com/document/d/1tLArTdqX-3cxahtqegT4bs1G0qoN3e_O/edit?usp=sharing" target="_blank" class="text-[10px] font-bold text-blue-600 hover:underline">Buka Dokumen</a>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600"><i class="fas fa-search-dollar"></i></div>
+                        <i class="fas fa-external-link-alt text-slate-300 text-xs"></i>
+                    </div>
+                    <h4 class="font-bold text-xs text-slate-700 uppercase mb-1">Form KYD</h4>
+                    <p class="text-[10px] text-slate-500 mb-3 line-clamp-2">Know Your Donor untuk donasi > 10 Juta.</p>
+                    <a href="https://docs.google.com/document/d/1kWYhcJL1YJVas31JSPRdI-Vd-QMtuErq/edit?usp=sharing" target="_blank" class="text-[10px] font-bold text-amber-600 hover:underline">Buka Dokumen</a>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600"><i class="fas fa-shopping-bag"></i></div>
+                        <i class="fas fa-external-link-alt text-slate-300 text-xs"></i>
+                    </div>
+                    <h4 class="font-bold text-xs text-slate-700 uppercase mb-1">Bid Comparison</h4>
+                    <p class="text-[10px] text-slate-500 mb-3 line-clamp-2">Perbandingan harga pengadaan > 5 Juta.</p>
+                    <a href="https://docs.google.com/document/d/1bjW567u4hGW4wke27XSGqMoLCCjKfPAd/edit?usp=sharing" target="_blank" class="text-[10px] font-bold text-purple-600 hover:underline">Buka Dokumen</a>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600"><i class="fas fa-receipt"></i></div>
+                        <i class="fas fa-external-link-alt text-slate-300 text-xs"></i>
+                    </div>
+                    <h4 class="font-bold text-xs text-slate-700 uppercase mb-1">Tanda Terima</h4>
+                    <p class="text-[10px] text-slate-500 mb-3 line-clamp-2">Bukti resmi penerimaan donasi/barang.</p>
+                    <a href="https://docs.google.com/document/d/1_XI9ddRvq4iTHm5jtBnWE6fMudEeTZdn/edit?usp=sharing" target="_blank" class="text-[10px] font-bold text-emerald-600 hover:underline">Buka Dokumen</a>
+                </div>
+            </div>
         </div>
+    </main>
 
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden min-h-[500px]">
-          <div className="bg-slate-50 border-b border-slate-100 px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <h2 className="font-bold text-slate-800 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-green-500" />
-              {activeTab === 'CMD' ? 'Dashboard Monitoring Digital' : (activeTab === 'STR' ? 'Struktur Organisasi' : `Detail Prosedur ${sops.find(s => s.id === activeTab).title}`)}
-            </h2>
-            <div className="flex flex-wrap justify-center gap-4 text-[10px] font-bold uppercase text-slate-400">
-              <div className="flex items-center gap-1"><div className="w-3 h-3 bg-slate-800 rounded-full"></div> Strategis</div>
-              <div className="flex items-center gap-1"><div className="w-3 h-3 bg-indigo-600 rounded"></div> Sistem Digital</div>
-              <div className="flex items-center gap-1"><div className="w-3 h-3 bg-white border-2 border-slate-200 rounded"></div> Manual</div>
-            </div>
-          </div>
-          
-          <div className="overflow-auto p-6 flex justify-center">
-            {renderContent()}
-          </div>
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-xs">© 2026 Yayasan Cakrawala Peduli Indonesia. Sistem Tata Kelola Terintegrasi.</p>
         </div>
+    </footer>
 
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-indigo-900 text-white p-4 rounded-xl shadow-lg">
-            <h4 className="font-bold text-xs text-indigo-300 uppercase mb-2 flex items-center gap-2 text-balance">
-              <Monitor className="w-4 h-4" /> Web App Alumni
-            </h4>
-            <p className="text-[11px] text-indigo-100">Gunakan sistem digital untuk update database & kas.</p>
-          </div>
-          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <h4 className="font-bold text-xs text-slate-400 uppercase mb-2">Form LPJ</h4>
-              <p className="text-[11px] text-slate-700 mb-2">Dokumen pertanggungjawaban keuangan.</p>
-            </div>
-            <a href={DOC_LINKS.FORM_LPJ} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-blue-600 flex items-center gap-1 hover:underline">
-              Buka Form <ExternalLink className="w-2.5 h-2.5" />
-            </a>
-          </div>
-          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <h4 className="font-bold text-xs text-slate-400 uppercase mb-2">Tanda Terima Donasi</h4>
-              <p className="text-[11px] text-slate-700 mb-2">Bukti resmi penerimaan dana/barang.</p>
-            </div>
-            <a href={DOC_LINKS.FORM_TANDA_TERIMA_DONASI} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-blue-600 flex items-center gap-1 hover:underline">
-              Buka Form <ExternalLink className="w-2.5 h-2.5" />
-            </a>
-          </div>
-          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <h4 className="font-bold text-xs text-slate-400 uppercase mb-2">Dana Solidaritas</h4>
-              <p className="text-[11px] text-slate-700 mb-2">Validasi darurat musibah alumni.</p>
-            </div>
-            <a href={DOC_LINKS.DANA_SOLIDARITAS} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-blue-600 flex items-center gap-1 hover:underline">
-              Buka Form <ExternalLink className="w-2.5 h-2.5" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA & CONFIG ---
+        const DOC_LINKS = {
+            BID_COMPARISON: "https://docs.google.com/document/d/1bjW567u4hGW4wke27XSGqMoLCCjKfPAd/edit?usp=sharing",
+            DONATUR_ALUMNI: "https://docs.google.com/document/d/1wS3flXYCk6-oPf05ToNBi01b73Omlug_/edit?usp=sharing",
+            DONATUR_KYD: "https://docs.google.com/document/d/1kWYhcJL1YJVas31JSPRdI-Vd-QMtuErq/edit?usp=sharing",
+            MITRA_ALUMNI: "https://docs.google.com/document/d/1_bChYCjRZ9Q_mKclpJ7nJhpL9Edr1uUZ/edit?usp=sharing",
+            DANA_SOLIDARITAS: "https://docs.google.com/document/d/1Lu4gPejeWBO2-XuN12OVMCIjrVTcskjp/edit?usp=drive_link",
+            DUE_DILIGENCE: "https://docs.google.com/document/d/1p6ggMmRWDlqBTJ4pmLDFS3Slyskb-gDG/edit?usp=sharing",
+            MOU: "https://docs.google.com/document/d/1_jO_piS9i9OGSpRgtuWzm4Cw6d67Z_aw/edit?usp=sharing",
+            SOP_KEUANGAN: "https://docs.google.com/document/d/17pe1b343PHugIJqdEkjZHn4ZaH34qA-w/edit?usp=drive_link",
+            PENGESAHAN: "https://docs.google.com/document/d/1kmbQuOU9CKsamJXHlXlK-PUkRsoluuqJ/edit?usp=drive_link",
+            SOP_CSR: "https://docs.google.com/document/d/1pV_uTaahHhJVRDKHz0nsyn0_Zg-zS9xZ/edit?usp=drive_link",
+            SOP_KEGIATAN: "https://docs.google.com/document/d/1jiKB_tcGSVdy6H1wD0Xpdq7AUd7nQpcP/edit?usp=drive_link",
+            SOP_DONASI: "https://docs.google.com/document/d/1wbGC37ChV1vANIcv9nhIZVTBAQmq5ujK/edit?usp=drive_link",
+            SOP_PENGADAAN: "https://docs.google.com/document/d/1spk3zlHGzCIO_JfAm9sFliNSBzAaPzTS/edit?usp=drive_link",
+            SOP_BANTUAN_INTERNAL: "https://docs.google.com/document/d/1_tcCAdVvRRwKisp1K840K0wLUoPwfoGY/edit?usp=drive_link",
+            FORM_LPJ: "https://docs.google.com/document/d/1tLArTdqX-3cxahtqegT4bs1G0qoN3e_O/edit?usp=sharing",
+            FORM_TANDA_TERIMA: "https://docs.google.com/document/d/1_XI9ddRvq4iTHm5jtBnWE6fMudEeTZdn/edit?usp=sharing"
+        };
 
-export default App;
+        const tabs = [
+            { id: 'STR', label: 'Struktur', icon: 'fa-sitemap', color: 'slate' },
+            { id: 'CMD', label: 'Command Center', icon: 'fa-desktop', color: 'indigo' },
+            { id: '001', label: 'Keuangan', icon: 'fa-dollar-sign', color: 'blue' },
+            { id: '004', label: 'Pengadaan', icon: 'fa-briefcase', color: 'purple' },
+            { id: '002', label: 'Kegiatan', icon: 'fa-file-alt', color: 'green' },
+            { id: '003', label: 'Donasi', icon: 'fa-users', color: 'amber' },
+            { id: 'INT', label: 'Bantuan', icon: 'fa-hand-holding-heart', color: 'rose' }
+        ];
+
+        let activeTab = 'STR';
+
+        // --- COMPONENTS RENDERERS ---
+
+        function renderNode(props) {
+            let bgColor = 'bg-white';
+            let borderColor = 'border-slate-200';
+            let shape = 'rounded-xl';
+            let textColor = 'text-slate-800';
+            let iconColor = 'text-slate-400';
+
+            if (props.type === 'start') {
+                bgColor = 'bg-slate-800';
+                textColor = 'text-white';
+                borderColor = 'border-slate-900';
+                iconColor = 'text-slate-400';
+            } else if (props.type === 'decision') {
+                bgColor = 'bg-orange-50';
+                borderColor = 'border-orange-200';
+            } else if (props.type === 'alumni') {
+                bgColor = 'bg-indigo-50';
+                borderColor = 'border-indigo-200';
+                textColor = 'text-indigo-900';
+            } else if (props.type === 'web') {
+                bgColor = 'bg-indigo-600';
+                borderColor = 'border-indigo-700';
+                textColor = 'text-white';
+            } else if (props.type === 'warning') {
+                bgColor = 'bg-red-50';
+                borderColor = 'border-red-200';
+                textColor = 'text-red-900';
+            }
+
+            let html = `
+                <div class="node-card flex flex-col p-5 border-2 shadow-sm ${bgColor} ${borderColor} ${shape} min-w-[280px] max-w-[320px] text-left relative z-10">
+            `;
+
+            if (props.pic) {
+                html += `<div class="absolute -top-3 left-4 bg-blue-600 text-white text-[9px] font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider">PIC: ${props.pic}</div>`;
+            }
+
+            if (props.person) {
+                let pClass = props.type === 'web' || props.type === 'start' ? 'text-slate-300' : 'text-slate-500';
+                html += `<span class="text-[10px] font-bold uppercase mb-1 tracking-widest text-center ${pClass}">${props.person}</span>`;
+            }
+
+            html += `<span class="font-bold text-sm uppercase tracking-tight text-center mb-1 ${textColor}">${props.text}</span>`;
+
+            if (props.subtext) {
+                let sClass = props.type === 'web' || props.type === 'start' ? 'text-slate-300' : 'text-slate-600';
+                html += `<span class="text-[11px] font-medium mb-3 italic text-center leading-tight ${sClass}">${props.subtext}</span>`;
+            }
+
+            if (props.responsibilities && props.responsibilities.length > 0) {
+                let listClass = props.type === 'web' || props.type === 'start' ? 'text-slate-300' : 'text-slate-600';
+                let titleClass = props.type === 'web' || props.type === 'start' ? 'text-slate-400' : 'text-slate-400';
+                html += `
+                    <div class="mb-3 pt-2 border-t ${props.type === 'web' || props.type === 'start' ? 'border-slate-600' : 'border-slate-100'}">
+                        <span class="text-[9px] font-bold uppercase tracking-tighter block mb-1 ${titleClass}">Tugas & Fungsi:</span>
+                        <ul class="text-[10px] list-disc list-outside ml-3 space-y-1 ${listClass}">
+                            ${props.responsibilities.map(r => `<li>${r}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            if (props.form) {
+                let linkColor = props.type === 'web' || props.type === 'start' ? 'text-blue-300 hover:text-white' : 'text-blue-600 hover:text-blue-800';
+                let borderColor = props.type === 'web' || props.type === 'start' ? 'border-slate-600' : 'border-slate-300';
+                
+                html += `
+                    <div class="mt-auto pt-2 border-t border-dashed ${borderColor} w-full group text-center">
+                `;
+                
+                if (props.link) {
+                    html += `
+                        <a href="${props.link}" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold inline-flex items-center justify-center gap-1 italic transition-colors ${linkColor}">
+                            <i class="fas fa-file-alt"></i> ${props.form} <i class="fas fa-external-link-alt ml-1 opacity-50"></i>
+                        </a>
+                    `;
+                } else {
+                    html += `<span class="text-[10px] font-bold text-slate-400 inline-flex items-center justify-center gap-1 italic"><i class="fas fa-file-alt"></i> ${props.form}</span>`;
+                }
+                html += `</div>`;
+            }
+
+            html += `</div>`;
+            return html;
+        }
+
+        function renderArrow() {
+            return `<div class="arrow-down"></div>`;
+        }
+
+        // --- SECTION RENDERERS ---
+
+        function renderStructure() {
+            return `
+                <div class="flex flex-col items-center space-y-6 w-full animate-fade-in">
+                    <div class="bg-slate-100 px-4 py-2 rounded-full text-[10px] font-bold text-slate-500 uppercase tracking-widest border border-slate-200">Tingkat Strategis</div>
+                    ${renderNode({
+                        person: "Baharudin Abiad",
+                        text: "Dewan Pembina",
+                        subtext: "Otoritas Tertinggi",
+                        responsibilities: ["Menetapkan Garis Besar Haluan.", "Menyetujui Tender > Rp 50 Juta.", "Audit Tahunan Kinerja Pengurus."],
+                        type: "organ",
+                        form: "SK Pengesahan SOP",
+                        link: DOC_LINKS.PENGESAHAN
+                    })}
+                    
+                    <div class="flex flex-wrap justify-center gap-8 w-full mt-4 items-start">
+                        <div class="flex flex-col items-center">
+                            <div class="w-0.5 h-8 bg-slate-300 mb-2"></div>
+                            ${renderNode({
+                                person: "Amri W. & Dimas K.",
+                                text: "Pengawas",
+                                subtext: "Auditor Internal",
+                                responsibilities: ["Surprise Audit fisik aset & kas.", "Validasi Transaksi Berelasi.", "Pencegahan mark-up harga."]
+                            })}
+                        </div>
+                        
+                        <div class="flex flex-col items-center">
+                            <div class="w-0.5 h-8 bg-slate-300 mb-2"></div>
+                            <div class="flex flex-wrap gap-4 justify-center">
+                                ${renderNode({
+                                    person: "Rio Anggie Widodo",
+                                    text: "Ketua Pengurus",
+                                    subtext: "Approval Utama",
+                                    responsibilities: ["Otorisasi Pengadaan Rp 5-50 Juta.", "Tanda tangan Kontrak/MoU.", "Persetujuan Matching Price."]
+                                })}
+                                <div class="flex flex-col gap-4">
+                                    ${renderNode({
+                                        person: "Puri Ananda S.T",
+                                        text: "Sekretaris Yayasan",
+                                        subtext: "Admin Legalitas",
+                                        responsibilities: ["Penerbitan PO (Purchase Order).", "Arsip BAST & Dokumen Tender.", "Cek Legalitas Vendor."]
+                                    })}
+                                    ${renderNode({
+                                        person: "Pratiwi S.T",
+                                        text: "Bendahara Yayasan",
+                                        subtext: "Gatekeeper Harga",
+                                        responsibilities: ["Survey HPS (Harga Pasar).", "Validasi keaslian nota tagihan.", "Eksekusi pembayaran (Max 7 hari)."]
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full h-px bg-slate-300 my-8"></div>
+                    <div class="bg-blue-50 px-4 py-2 rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest border border-blue-100">Tingkat Eksekutif (BPH)</div>
+
+                    ${renderNode({
+                        person: "Gilang Satria",
+                        text: "Ketua BPH",
+                        subtext: "Direktur Sourcing",
+                        responsibilities: ["Verifikasi Purchase Request divisi.", "Sourcing Vendor Alumni.", "Negosiasi harga awal."],
+                        type: "alumni"
+                    })}
+                    ${renderArrow()}
+                    
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        ${renderNode({
+                            person: "Risyandi",
+                            text: "Wakil Ketua BPH",
+                            subtext: "Manajer Logistik & QC",
+                            responsibilities: ["Cek fisik barang (QC).", "Tanda tangan BAST.", "Manajemen stok & inventaris."]
+                        })}
+                        ${renderNode({
+                            person: "Lia A. & Alhamdi R.",
+                            text: "Sekretaris BPH",
+                            subtext: "Admin & Database",
+                            responsibilities: ["Administrasi program.", "Kelola Database Alumni.", "Inventarisir aset & arsip."]
+                        })}
+                        ${renderNode({
+                            person: "Arif Kurniawan",
+                            text: "Humas & Publikasi",
+                            subtext: "Promosi Vendor",
+                            responsibilities: ["Publikasi profil vendor alumni.", "Sosialisasi kebutuhan yayasan.", "Branding 'Didukung Alumni 2005'."]
+                        })}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPengadaan() {
+            return `
+                <div class="flex flex-col items-center space-y-8 w-full animate-fade-in">
+                    <!-- FASE 1 -->
+                    <div class="w-full flex flex-col items-center bg-purple-50 p-8 rounded-3xl border border-purple-100 relative">
+                        <div class="absolute top-4 left-4 text-purple-200 text-6xl opacity-20"><i class="fas fa-shopping-bag"></i></div>
+                        <div class="flex items-center gap-2 mb-6 text-purple-700 font-bold uppercase tracking-widest text-sm z-10">
+                            <i class="fas fa-shopping-bag"></i> FASE 1: INISIASI & SOURCING
+                        </div>
+                        
+                        ${renderNode({
+                            text: "1. Permintaan (Requisition)",
+                            subtext: "Isi Spesifikasi di Form",
+                            pic: "Divisi Pengguna",
+                            form: "Purchase Request (PR)",
+                            type: "start"
+                        })}
+                        ${renderArrow()}
+                        ${renderNode({
+                            text: "2. Cek Direktori Alumni",
+                            subtext: "Wajib 'Alumni First'",
+                            pic: "Gilang Satria (BPH)",
+                            responsibilities: ["Cek database usaha alumni 2005.", "Prioritaskan alumni sebagai vendor.", "Jika tidak ada, cari vendor luar."],
+                            type: "alumni",
+                            form: "Form Mitra Alumni",
+                            link: DOC_LINKS.MITRA_ALUMNI
+                        })}
+                        ${renderArrow()}
+                        ${renderNode({
+                            text: "3. Survey HPS",
+                            subtext: "Harga Perkiraan Sendiri",
+                            pic: "Pratiwi (Bendahara)",
+                            responsibilities: ["Cek harga pasar online/offline.", "Tentukan batas atas (Ceiling Price).", "Cegah mark-up harga."]
+                        })}
+                    </div>
+
+                    <!-- FASE 2 -->
+                    <div class="w-full flex flex-col items-center bg-slate-50 p-8 rounded-3xl border border-slate-200 relative">
+                        <div class="absolute top-4 right-4 text-slate-200 text-6xl opacity-20"><i class="fas fa-balance-scale"></i></div>
+                        <div class="flex items-center gap-2 mb-6 text-slate-700 font-bold uppercase tracking-widest text-sm z-10">
+                            <i class="fas fa-balance-scale"></i> FASE 2: SELEKSI & KEPUTUSAN
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl justify-items-center">
+                            ${renderNode({
+                                text: "< Rp 5 Juta",
+                                subtext: "Pembelian Langsung",
+                                responsibilities: ["Langsung beli ke vendor alumni.", "Wajib nota/bon asli.", "Tanpa perlu pembanding."]
+                            })}
+                            ${renderNode({
+                                text: "Rp 5 - 50 Juta",
+                                subtext: "Pembanding Harga",
+                                responsibilities: ["Min 2 penawaran (Wajib 1 Alumni).", "Isi Form Bid Comparison.", "Approval Ketua Pengurus."],
+                                form: "Bid Comparison Form",
+                                link: DOC_LINKS.BID_COMPARISON
+                            })}
+                            ${renderNode({
+                                text: "> Rp 50 Juta",
+                                subtext: "Tender Terbatas",
+                                pic: "Dewan Pengawas",
+                                responsibilities: ["Min 3 penawaran resmi.", "Berita Acara Seleksi Vendor.", "Persetujuan Dewan Pengawas."]
+                            })}
+                        </div>
+
+                        <div class="mt-8 p-6 bg-indigo-50 border-2 border-indigo-200 rounded-2xl w-full max-w-2xl shadow-sm text-center">
+                            <h4 class="font-bold text-indigo-900 flex items-center justify-center gap-2 mb-2">
+                                <i class="fas fa-certificate text-indigo-600"></i> KEBIJAKAN SUBSIDI 10%
+                            </h4>
+                            <p class="text-xs text-indigo-800 leading-relaxed italic">
+                                "Jika harga vendor Alumni maksimal 10% lebih mahal dari harga pasar terendah, Yayasan <strong>WAJIB</strong> memilih alumni tersebut. Selisih dianggap sebagai investasi pemberdayaan."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FASE 3 -->
+                    <div class="w-full flex flex-col items-center bg-red-50 p-8 rounded-3xl border border-red-100">
+                        <div class="flex items-center gap-2 mb-6 text-red-700 font-bold uppercase tracking-widest text-sm">
+                            <i class="fas fa-truck"></i> FASE 3: EKSEKUSI & PEMBAYARAN
+                        </div>
+                        ${renderNode({
+                            text: "1. Deklarasi Integritas",
+                            subtext: "Cegah Konflik Kepentingan",
+                            pic: "Semua Pihak",
+                            responsibilities: ["Wajib lapor jika vendor keluarga/teman.", "Dilarang ikut voting.", "Dilarang terima komisi."],
+                            type: "warning",
+                            form: "Form Deklarasi Benturan",
+                            link: DOC_LINKS.BID_COMPARISON
+                        })}
+                        ${renderArrow()}
+                        ${renderNode({
+                            text: "2. Penerbitan PO",
+                            subtext: "Kontrak Pesanan",
+                            pic: "Puri Ananda (Sekretaris)",
+                            responsibilities: ["Kirim PO resmi ke vendor.", "Cantumkan spesifikasi & termin bayar."]
+                        })}
+                        ${renderArrow()}
+                        ${renderNode({
+                            text: "3. Receiving & QC",
+                            subtext: "Cek Fisik Barang",
+                            pic: "Risyandi (Wakil BPH)",
+                            responsibilities: ["Cek kondisi & jumlah barang.", "Tanda tangan BAST.", "Retur jika tidak sesuai spek."],
+                            form: "BAST Barang"
+                        })}
+                        ${renderArrow()}
+                        ${renderNode({
+                            text: "4. Pembayaran",
+                            subtext: "Pelunasan Tagihan",
+                            pic: "Pratiwi (Bendahara)",
+                            responsibilities: ["Verifikasi invoice & BAST.", "Prioritas pelunasan alumni (7 hari).", "Transfer via Bank Yayasan."]
+                        })}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderKeuangan() {
+            return `
+                <div class="flex flex-col items-center space-y-8 w-full animate-fade-in">
+                    <div class="w-full flex flex-col items-center bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                        <div class="flex items-center gap-2 mb-6 text-blue-700 font-bold uppercase tracking-widest text-sm">
+                            <i class="fas fa-arrow-up"></i> ALUR PENGELUARAN (CASH OUT)
+                        </div>
+                        ${renderNode({
+                            text: "1. Pengajuan",
+                            subtext: "Min H-7",
+                            pic: "Divisi Pengusul",
+                            form: "Form FPKA & RAB",
+                            link: DOC_LINKS.SOP_KEUANGAN,
+                            type: "start"
+                        })}
+                        ${renderArrow()}
+                        ${renderNode({
+                            text: "2. Verifikasi",
+                            subtext: "Cek Saldo",
+                            pic: "Gilang & Pratiwi"
+                        })}
+                        ${renderArrow()}
+                        ${renderNode({
+                            text: "3. Matriks Otorisasi",
+                            type: "decision"
+                        })}
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 w-full max-w-6xl justify-items-center">
+                            ${renderNode({text: "< Rp 1 Juta", subtext: "Kas Kecil (Puri)"})}
+                            ${renderNode({text: "Rp 1 - 10 Juta", subtext: "Bank (Pratiwi)"})}
+                            ${renderNode({text: "Rp 10 - 50 Juta", subtext: "Ketua (Rio)"})}
+                            ${renderNode({text: "> Rp 50 Juta", subtext: "Rapat Gabungan"})}
+                        </div>
+                        ${renderArrow()}
+                        ${renderNode({
+                            text: "4. Eksekusi Belanja",
+                            subtext: "Alumni First",
+                            pic: "Bendahara",
+                            type: "alumni",
+                            form: "Bid Comparison",
+                            link: DOC_LINKS.BID_COMPARISON
+                        })}
+                        ${renderArrow()}
+                        ${renderNode({
+                            text: "5. LPJ & Sisa Dana",
+                            subtext: "H+14 Selesai",
+                            pic: "PIC Divisi",
+                            form: "Form LPJ Keuangan",
+                            link: DOC_LINKS.FORM_LPJ
+                        })}
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- TAB LOGIC ---
+        function switchTab(tabId) {
+            activeTab = tabId;
+            renderNavigation();
+            renderContent();
+        }
+
+        function renderNavigation() {
+            const nav = document.getElementById('nav-container');
+            nav.innerHTML = tabs.map(tab => {
+                const isActive = activeTab === tab.id;
+                const activeClass = isActive ? `bg-${tab.color}-100 text-${tab.color}-700 border-${tab.color}-200 shadow-sm` : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50 border-transparent';
+                return `
+                    <button onclick="switchTab('${tab.id}')" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-all duration-200 flex items-center gap-2 ${activeClass}">
+                        <i class="fas ${tab.icon} ${isActive ? '' : 'text-slate-400'}"></i> ${tab.label}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderContent() {
+            const canvas = document.getElementById('canvas');
+            const title = document.getElementById('page-title');
+            const desc = document.getElementById('page-desc');
+
+            // Set Title & Desc based on tab
+            const tabData = tabs.find(t => t.id === activeTab);
+            title.innerHTML = tabData.label;
+            
+            if (activeTab === 'STR') {
+                desc.innerHTML = 'Hierarki jabatan, tugas, dan tanggung jawab personel.';
+                canvas.innerHTML = renderStructure();
+            } else if (activeTab === '004') {
+                desc.innerHTML = 'Prosedur pengadaan barang/jasa dengan prinsip Alumni First.';
+                canvas.innerHTML = renderPengadaan();
+            } else if (activeTab === '001') {
+                desc.innerHTML = 'Tata kelola arus kas masuk dan keluar.';
+                canvas.innerHTML = renderKeuangan();
+            } else if (activeTab === 'CMD') {
+                desc.innerHTML = 'Integrasi sistem digital (Web App) dengan SOP manual.';
+                canvas.innerHTML = `
+                    <div class="flex flex-col items-center space-y-8 w-full animate-fade-in">
+                        <div class="bg-indigo-900 text-white p-8 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden text-center">
+                            <i class="fas fa-desktop text-6xl text-indigo-400 mb-4 inline-block"></i>
+                            <h2 class="text-2xl font-bold mb-2">CPI Command Center 2026</h2>
+                            <p class="text-indigo-200">Admin Sistem: <span class="font-bold text-white">Alhamdi Rasyid</span></p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+                            ${renderNode({ text: "Dashboard Strategis", subtext: "KPI Visual", type: "web", responsibilities: ["Peta Jalan", "Statistik Pilar"] })}
+                            ${renderNode({ text: "Buku Kas Digital", subtext: "Auto Report", type: "web", responsibilities: ["Input Harian", "Ekspor PDF"] })}
+                            ${renderNode({ text: "Papan Kanban", subtext: "Monitoring", type: "web", responsibilities: ["Tracking Rencana", "Audit LPJ"] })}
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Placeholder for other tabs (Kegiatan, Donasi, Bantuan) using generic structure
+                desc.innerHTML = `Detail alur ${tabData.label} sesuai SOP yang berlaku.`;
+                let content = '';
+                
+                if (activeTab === '003') { // DONASI
+                    content = `
+                        <div class="w-full flex flex-col items-center bg-amber-50 p-8 rounded-3xl border border-amber-100">
+                            ${renderNode({text: "1. Terima Dana", subtext: "Bank/QRIS", pic: "Donatur", type: "start", form: "Form Data Donatur", link: DOC_LINKS.DONATUR_ALUMNI})}
+                            ${renderArrow()}
+                            ${renderNode({text: "2. KYD Screening", subtext: "> 10 Juta", pic: "Bendahara", form: "Form KYD", link: DOC_LINKS.DONATUR_KYD, type: "decision"})}
+                            ${renderArrow()}
+                            ${renderNode({text: "3. Tanda Terima", subtext: "Max 24 Jam", pic: "Humas", form: "Surat Tanda Terima", link: DOC_LINKS.FORM_TANDA_TERIMA})}
+                        </div>
+                    `;
+                } else if (activeTab === '002') { // KEGIATAN
+                    content = `
+                        <div class="w-full flex flex-col items-center bg-green-50 p-8 rounded-3xl border border-green-100">
+                            ${renderNode({text: "1. Proposal", subtext: "H-14/H-30", pic: "Divisi", type: "start", link: DOC_LINKS.SOP_KEGIATAN, form: "SOP Kegiatan"})}
+                            ${renderArrow()}
+                            ${renderNode({text: "2. Verifikasi", pic: "BPH & Ketua"})}
+                            ${renderArrow()}
+                            ${renderNode({text: "3. Eksekusi", subtext: "QC & Branding", pic: "Panitia"})}
+                            ${renderArrow()}
+                            ${renderNode({text: "4. LPJ", subtext: "Max H+14", form: "Form LPJ", link: DOC_LINKS.FORM_LPJ})}
+                        </div>
+                    `;
+                } else if (activeTab === 'INT') { // BANTUAN
+                    content = `
+                        <div class="w-full flex flex-col items-center bg-rose-50 p-8 rounded-3xl border border-rose-100">
+                            ${renderNode({text: "Pengajuan", subtext: "Via Koorwil", type: "start", form: "Form Solidaritas", link: DOC_LINKS.DANA_SOLIDARITAS})}
+                            ${renderArrow()}
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mt-4">
+                                <div class="flex flex-col items-center">${renderNode({text: "Pendidikan", subtext: "Rutin/Beasiswa", responsibilities: ["Skor Panel", "Persetujuan Forum"]})}</div>
+                                <div class="flex flex-col items-center">${renderNode({text: "Darurat", subtext: "Validasi 12 Jam", pic: "Ketua & Bendahara", responsibilities: ["Cair Max 24 Jam", "Transfer RS"]})}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                canvas.innerHTML = content;
+            }
+        }
+
+        // --- INIT ---
+        renderNavigation();
+        renderContent();
+
+    </script>
+</body>
+</html>
